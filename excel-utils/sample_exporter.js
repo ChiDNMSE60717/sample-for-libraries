@@ -20,6 +20,13 @@ const headers = {
 
 
 var exporter = new Exporter(filename);
+exporter.setConfigurations(
+	{
+		REPLACE_UNKNOWN_TO_EMPTY = true,
+	    DECORATE_BORDER = true,
+	    DECORATE_HEADER_COLOR = '#50ffff'
+	}
+);
 exporter.addSheet(headers,
     [
       {
