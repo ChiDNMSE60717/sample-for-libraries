@@ -1,7 +1,7 @@
 import { Exporter } from '@chidoan/excel-utils';
 
 /**
- * VERSION: 2.0.0
+ * VERSION: 3.0.0
  * 
  * NOTE: With DateTime type, you don't require to provide "format" field (default is General Date) or use on of value in below enum
  * Enum: General Date, Long Date, Medium Date, Short Date, Long Time, or other format in Excel for DateTime 
