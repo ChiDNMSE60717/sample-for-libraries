@@ -1,6 +1,14 @@
 import { Exporter } from '@chidoan/excel-utils';
 
-const filename = 'CHIDOAN';
+/**
+ * VERSION: 2.0.0
+ * 
+ * NOTE: With DateTime type, you don't require to provide "format" field (default is General Date) or use on of value in below enum
+ * Enum: General Date, Long Date, Medium Date, Short Date, Long Time, or other format in Excel for DateTime 
+ */
+
+
+const filename = Date.now();
 const headers = {
     username: {
       text: 'USERNAME',
@@ -13,43 +21,42 @@ const headers = {
     },
     joining_date: {
       text: 'JOINING DATE',
-      type: 'String',
+      type: 'DateTime',
       width: 150
     }
 };
+const data = [
+  {
+    username: 'chidoan',
+    birth_year: 1992,
+    joining_date: '2018-12-12'
+  },
+  {
+    username: 'toan.nguyen',
+    birth_year: 1991,
+    joining_date: '2018-12-12'
+  },
+  {
+    username: 'phuc_dao',
+    birth_year: 1992,
+    joining_date: '2018-12-12'
+  }
+];
 
+const exportExcel = () => { 
+  const exporter = new Exporter(filename);
+  exporter.setConfigurations({
+    REPLACE_UNKNOWN_TO_EMPTY: true,
+    DECORATE_BORDER: true,
+    DECORATE_HEADER_COLOR: '#4285F4'
+  });
 
-var exporter = new Exporter(filename);
-exporter.setConfigurations(
-	{
-	    REPLACE_UNKNOWN_TO_EMPTY: true,
-	    DECORATE_BORDER: true,
-	    DECORATE_HEADER_COLOR: '#50ffff'
-	}
-);
-exporter.addSheet(headers,
-    [
-      {
-        username: 'chidoan',
-        birth_year: 1992,
-        joining_date: '12/12/2018'
-      },
-      {
-        username: 'toan.nguyen',
-        birth_year: 1991,
-        joining_date: '12/12/2018'
-      },
-      {
-        username: 'phuc_dao',
-        birth_year: 1992,
-        joining_date: '12/12/2018'
-      }
-    ],
-    'sheet_1'
-);
-var result = exporter.exportExcel();
-if (result.success) {
-	console.log(`Exporte file is successful`);
-} else {
-	console.error(result.message);
+  exporter.addSheet(headers, data, 'sheet_1');
+
+  const result = exporter.exportExcel();
+  if (result.success) {
+    console.log(`Export file is successful`);
+  } else {
+    console.error(result.message);
+  }
 }
